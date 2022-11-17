@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Circles</title>
 </head>
 <body>
-    <div class="main">
+    <div class="main" id="main">
+        Scissors &#x270C
     </div>
-    <button class="startMatch">Start match</button>
+    <div class="buttons">
+        <button class="button previous" id="previous"> << </button>
+        <button class="button startMatch" id="startMatch">Select</button>
+        <button class="button next" id="next"> >> </button>
+    </div>
+    
+    <span class="score" id="score">0</span>
+    <span class="opponentChoice" id="opponentChoice">_</span>
+    <span class="gameOverMessage" id="gameOverMessage">_</span>
     <script src="script.js"></script>
 </body>
 </html>

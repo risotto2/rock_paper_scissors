@@ -9,35 +9,75 @@ function getComputerChoice() {
     return result;
 }
 
+
+let nextButton = document.getElementById('next');
+let previousButton = document.getElementById('previous');
+let main = document.getElementById('main');
+let startMatch = document.getElementById('startMatch');
+let opponentChoice = document.getElementById('opponentChoice');
+let gameOverMessage = document.getElementById('gameOverMessage');
+let scoreCounter = document.getElementById('score')
+
+let choiceArray = [
+    'Rock ' + String.fromCodePoint(0x270A),
+    'Paper ' + String.fromCodePoint(0x270B),
+    'Scissors ' + String.fromCodePoint(0x270C)
+    
+    
+]
+let arrayIndex = 0;
+
 let computerChoice = 0;
 let userInput = "";
-let playerChoice = 0;
+let playerChoice = arrayIndex;
+let score = 0;
+let matchCounter = 0;
+
+scoreCounter.textContent = 'Score: ' + score + ' | Match count: ' + matchCounter;
+
+main.textContent = choiceArray[arrayIndex];
+nextButton.addEventListener('click', arrayIteration);
+previousButton.addEventListener('click', reverseArrayIteration)
+startMatch.addEventListener('click', game)
+
+function arrayIteration() {
+    if (arrayIndex == 2) {
+        arrayIndex = 0;
+        main.textContent = choiceArray[arrayIndex];
+        playerChoice = arrayIndex;
+    } else {
+        arrayIndex++;
+        main.textContent = choiceArray[arrayIndex];
+        playerChoice = arrayIndex;
+    }
+}
+
+function reverseArrayIteration() {
+    if (arrayIndex == 0) {
+        arrayIndex = 2;
+        main.textContent = choiceArray[arrayIndex];
+        playerChoice = arrayIndex;
+    } else {
+        arrayIndex--;
+        main.textContent = choiceArray[arrayIndex];
+        playerChoice = arrayIndex;
+    }
+}
+
 
 function setMatchInputs() {
     computerChoice = getComputerChoice();
-    userInput = prompt("Write 'rock', 'paper', or 'scissors': ").toLowerCase();
-    if (userInput === "rock") {
-        playerChoice = 0;
-    } else if (userInput === "paper") {
-        playerChoice = 1;
-    } else if (userInput === "scissors") {
-        playerChoice = 2;
-    } else {
-        console.log("Invalid input. Try again.");
-        setMatchInputs();
-    }
 }
 
 function playRound(playerChoice, computerChoice) {
 
     switch (computerChoice) {
-        case 0: console.log("Your oponent chose rock!"); break;
-        case 1: console.log("Your oponent chose paper!"); break;
-        case 2: console.log("Your oponent chose scissors!"); break;
+        case 0: opponentChoice.textContent = "Your opponent chose rock!"; break;
+        case 1: opponentChoice.textContent = "Your opponent chose paper!"; break;
+        case 2: opponentChoice.textContent = "Your opponent chose scissors!"; break;
     }
 
     if (playerChoice === computerChoice) {
-        /*'d' as in 'draw'*/
         return "d";
     }
 
@@ -61,9 +101,22 @@ function game(){
     let result = playRound(playerChoice, computerChoice);
 
     switch (result) {
-        case "d": console.log("Draw."); break;
-        case "l": console.log("You lose."); break;
-        case "w": console.log("You win."); break;
+        case "d": 
+            gameOverMessage.textContent = "Draw."; gameOverMessage.style.color = 'black';
+            matchCounter++;
+            scoreCounter.textContent = "Score: " + score + " | Match count: " + matchCounter;
+            opponentChoice.style.color = 'black';
+            break;
+        case "l": 
+            gameOverMessage.textContent = "You lose."; gameOverMessage.style.color = 'red';
+            matchCounter++;
+            scoreCounter.textContent = "Score: " + score + " | Match count: " + matchCounter;
+            opponentChoice.style.color = 'red'; break;
+        case "w":
+            gameOverMessage.textContent = "You win"; gameOverMessage.style.color = "green";
+            score++;
+            matchCounter++;
+            scoreCounter.textContent = "Score: " + score + " | Match count: " + matchCounter;
+            opponentChoice.style.color = 'green'; break;
     }
 }
-
