@@ -1,1 +1,1 @@
-# rock_paper_scissors
+# UI for the console rock, paper and scissors game.
